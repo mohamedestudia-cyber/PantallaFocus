@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>PantallaFocus</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b0d12;color:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.app{max-width:520px;margin:auto;min-height:100vh;padding:22px 18px 92px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.logo{font-weight:800;font-size:22px}.logo span{color:#8cf0c4}.pill{background:#171b24;border:1px solid #262c38;padding:8px 12px;border-radius:99px;font-size:12px;color:#aeb6c5}
+h1{font-size:31px;line-height:1.08;margin:10px 0}.sub{color:#9da6b5;line-height:1.5}
+.card{background:#121620;border:1px solid #252b36;border-radius:22px;padding:18px;margin:14px 0;box-shadow:0 8px 30px #0003}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stat{padding:16px;border-radius:18px;background:#171c26}.big{font-size:28px;font-weight:800;margin-top:6px}.muted{color:#8f98a8;font-size:13px}
+button{width:100%;border:0;border-radius:15px;padding:14px;font-weight:750;font-size:15px;background:#8cf0c4;color:#07110c;margin-top:10px}button.secondary{background:#202632;color:#fff}
+input,select{width:100%;padding:13px;border-radius:13px;border:1px solid #303746;background:#0e1219;color:white;margin-top:8px}
+.section{display:none}.section.active{display:block}.timer{font-size:70px;text-align:center;font-weight:850;letter-spacing:-3px;padding:25px 0}.score{font-size:44px;font-weight:850}.bar{height:9px;background:#242b37;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:#8cf0c4;width:0}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);display:grid;grid-template-columns:repeat(4,1fr);padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#0d1016ee;backdrop-filter:blur(16px);border-top:1px solid #242a34}.nav button{background:none;color:#8790a0;margin:0;padding:9px 4px;font-size:12px}.nav button.on{color:#8cf0c4}.tag{display:inline-block;background:#1b2926;color:#8cf0c4;border-radius:99px;padding:6px 10px;font-size:12px;margin:3px}.note{font-size:13px;color:#9da6b5;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="top"><div class="logo">Pantalla<span>Focus</span></div><div class="pill">TR · mode prova</div></div>
+
+<section id="home" class="section active">
+<h1>Recupera el focus.</h1><p class="sub">Una eina del teu Treball de Recerca per observar hàbits digitals, concentració i benestar.</p>
+<div class="card"><span class="tag">Focus Mode</span><h2>Comença una sessió</h2><p class="sub">Deixa el mòbil a una banda i treballa sense interrupcions.</p><button onclick="show('focus')">Començar 25 min</button></div>
+<div class="grid"><div class="stat"><div class="muted">Sessions</div><div class="big" id="sessions">0</div></div><div class="stat"><div class="muted">Focus mitjà</div><div class="big" id="avg">—</div></div></div>
+<div class="card"><b>Avui</b><p class="note">Registra també el son i l'ús de pantalla per comparar hàbits amb la teva concentració.</p></div>
+</section>
+
+<section id="focus" class="section">
+<h1>Focus Lab</h1><p class="sub">Valora com et sents abans i després.</p>
+<div class="card"><label>Concentració abans: <b id="beforeVal">5</b>/10</label><input type="range" min="1" max="10" value="5" oninput="beforeVal.textContent=this.value"><div class="timer" id="timer">25:00</div><button onclick="startTimer()" id="start">Iniciar</button><button class="secondary" onclick="finish()">Finalitzar sessió</button></div>
+<div class="card"><label>Concentració després: <b id="afterVal">7</b>/10</label><input type="range" min="1" max="10" value="7" oninput="afterVal.textContent=this.value"><p class="note">Aquesta és una autoavaluació orientativa, no un diagnòstic clínic.</p><button onclick="saveSession()">Guardar resultat</button></div>
+</section>
+
+<section id="habits" class="section">
+<h1>Hàbits</h1><p class="sub">Introdueix dades senzilles per al teu seguiment.</p>
+<div class="card"><label>Hores de pantalla d'oci</label><input id="screen" type="number" min="0" step=".5" placeholder="Ex. 3.5"><label>Hores de son</label><input id="sleep" type="number" min="0" step=".5" placeholder="Ex. 8"><label>Ús de pantalla abans de dormir (min)</label><input id="night" type="number" min="0" placeholder="Ex. 30"><button onclick="saveHabits()">Guardar hàbits</button></div>
+<div class="card"><b>Objectius</b><p><span class="tag">☾ 7–9 h de son</span><span class="tag">📵 pausa abans de dormir</span><span class="tag">🎯 25 min de focus</span></p></div>
+</section>
+
+<section id="stats" class="section">
+<h1>Estadístiques</h1><div class="grid"><div class="stat"><div class="muted">Sessions</div><div class="big" id="s2">0</div></div><div class="stat"><div class="muted">Focus mitjà</div><div class="big" id="a2">—</div></div></div>
+<div class="card"><b>Progrés de concentració</b><div style="margin:18px 0"><div class="bar"><i id="progress"></i></div></div><p class="note" id="summary">Encara no hi ha dades suficients.</p></div>
+<div class="card"><b>Research Mode</b><p class="note">Codi anònim i dades guardades localment al dispositiu.</p><input id="code" placeholder="Codi participant (ex. PF-001)"><button onclick="saveCode()">Guardar codi</button></div>
+</section>
+</div>
+<div class="nav">
+<button class="on" onclick="show('home',this)">⌂<br>Inici</button>
+<button onclick="show('focus',this)">◉<br>Focus</button>
+<button onclick="show('habits',this)">☰<br>Hàbits</button>
+<button onclick="show('stats',this)">◌<br>Dades</button>
+</div>
+<script>
+let data=JSON.parse(localStorage.getItem('pf')||'{"sessions":[],"habits":{},"code":""}'), interval, remaining=1500;
+function show(id,btn){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('on'));if(btn)btn.classList.add('on');update()}
+function update(){let n=data.sessions.length;let avg=n?Math.round(data.sessions.reduce((a,x)=>a+x.after,0)/n*10)/10:null;['sessions','s2'].forEach(id=>document.getElementById(id).textContent=n);['avg','a2'].forEach(id=>document.getElementById(id).textContent=avg??'—');document.getElementById('progress').style.width=Math.min(100,(avg||0)*10)+'%';document.getElementById('summary').textContent=n?`Has completat ${n} sessió${n>1?'ns':''}. La mitjana d'autoavaluació és ${avg}/10.`:'Encara no hi ha dades suficients.'}
+function startTimer(){clearInterval(interval);document.getElementById('start').textContent='En curs…';interval=setInterval(()=>{remaining--;let m=Math.floor(remaining/60),s=remaining%60;document.getElementById('timer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;if(remaining<=0){clearInterval(interval);alert('Sessió completada!');}},1000)}
+function finish(){clearInterval(interval);remaining=1500;document.getElementById('timer').textContent='25:00';document.getElementById('start').textContent='Iniciar'}
+function saveSession(){data.sessions.push({before:+beforeVal.textContent,after:+afterVal.textContent,date:new Date().toISOString()});localStorage.setItem('pf',JSON.stringify(data));finish();update();alert('Resultat guardat al dispositiu.');show('stats')}
+function saveHabits(){data.habits={screen:screen.value,sleep:sleep.value,night:night.value,date:new Date().toISOString()};localStorage.setItem('pf',JSON.stringify(data));alert('Hàbits guardats.');}
+function saveCode(){data.code=code.value.trim();localStorage.setItem('pf',JSON.stringify(data));alert('Codi guardat localment.');}
+update();
+</script>
+</body></html>
