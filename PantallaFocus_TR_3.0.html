@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<title>PantallaFocus — Recerca sobre pantalles i adolescència</title>
+<style>
+:root{
+  --bg:#070b16;--panel:#0e1528;--panel2:#131d34;--line:#263452;
+  --text:#f5f7ff;--muted:#aeb8d0;--accent:#7c9cff;--accent2:#58d6b3;
+  --danger:#ff7185;--warn:#f3c969;--shadow:0 16px 50px rgba(0,0,0,.28)
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(160deg,#070b16,#0b1122 55%,#071018);color:var(--text);font:15px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{max-width:1100px;margin:auto;padding:18px 16px 40px}
+header{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:18px}
+.brand{display:flex;gap:12px;align-items:center}.logo{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:900;color:#08101c}
+h1{font-size:22px;margin:0} h2{font-size:20px;margin:0 0 7px} h3{font-size:16px;margin:0 0 5px}.sub{color:var(--muted);font-size:13px}
+.nav{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:18px}
+.nav button,.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:12px;padding:11px 10px;min-height:44px}
+.nav button.active,.btn.primary{background:var(--accent);color:#08101c;border-color:var(--accent);font-weight:800}
+.nav button:hover,.btn:hover{border-color:#5571ad}
+.view{display:none}.view.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:rgba(14,21,40,.94);border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow);margin-bottom:14px}
+.hero{padding:22px;background:linear-gradient(145deg,#111b36,#0d1729)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:15px}.kpi{padding:13px;border:1px solid var(--line);border-radius:14px;background:#0a1120}.num{font-size:25px;font-weight:850}.label{color:var(--muted);font-size:12px}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.between{justify-content:space-between}
+label{display:block;color:var(--muted);font-size:13px;margin:12px 0 6px}
+input,select{width:100%;background:#080e1c;color:var(--text);border:1px solid var(--line);border-radius:11px;padding:11px;outline:none}
+input:focus,select:focus{border-color:var(--accent)}
+.field{min-width:0;flex:1}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{padding:10px 13px}.btn.small{padding:8px 10px;min-height:38px}.btn.ghost{background:transparent}.btn.danger{border-color:#63303b;color:#ffb0ba}
+.notice{padding:12px 13px;border:1px solid var(--line);border-radius:12px;background:#0a1120;color:var(--muted);font-size:13px}
+.notice.good{border-color:#2c6256;color:#b9f1df}.notice.warn{border-color:#685a31;color:#f6df99}
+.pill{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:5px 9px;color:var(--muted);font-size:12px}
+.options{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.options button{text-align:left}
+.options button.sel{border-color:var(--accent);background:#162343}
+.range{width:100%}
+.timer{font-size:64px;font-weight:900;letter-spacing:2px;text-align:center;margin:14px 0}
+.timer.done{color:var(--accent2)}
+.barwrap{height:10px;background:#080e1c;border-radius:99px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--muted)}
+.chart{height:170px;display:flex;align-items:end;gap:7px;padding:8px 2px 0;border-bottom:1px solid var(--line)}.col{flex:1;min-width:8px;background:linear-gradient(180deg,var(--accent),#334b8a);border-radius:6px 6px 0 0;position:relative}.col span{position:absolute;bottom:-23px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted)}
+.testbox{text-align:center;padding:28px;border:1px dashed #41557f;border-radius:18px;background:#080f1e}.stim{font-size:70px;font-weight:950;min-height:100px;display:grid;place-items:center}.resultBig{font-size:32px;font-weight:900}
+.hidden{display:none!important}.muted{color:var(--muted)}.center{text-align:center}.danger{color:var(--danger)}.success{color:var(--accent2)}
+footer{margin-top:20px;color:#7f8aa4;font-size:11px;text-align:center}
+@media(max-width:760px){.grid,.grid3{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.nav{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.timer{font-size:50px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><div class="logo">PF</div><div><h1>PantallaFocus</h1><div class="sub">Hàbits digitals, descans i concentració</div></div></div>
+  <span class="pill" id="codePill">Sense codi</span>
+</header>
+
+<nav class="nav" aria-label="Navegació">
+<button class="active" data-view="home">Inici</button><button data-view="diari">Diari</button><button data-view="proves">Proves</button><button data-view="dades">Dades</button>
+</nav>
+
+<section id="home" class="view active">
+  <div class="card hero">
+    <h2>Entén els teus hàbits digitals</h2>
+    <p class="muted">Registra els teus hàbits de pantalla i compara'ls amb el descans i la concentració mitjançant proves senzilles.</p>
+    <div class="row"><button class="btn primary" data-go="diari">Registrar el dia</button><button class="btn" data-go="proves">Fer una prova</button></div>
+    <div class="kpis">
+      <div class="kpi"><div class="num" id="kSessions">0</div><div class="label">registres</div></div>
+      <div class="kpi"><div class="num" id="kScreen">—</div><div class="label">h pantalla/dia</div></div>
+      <div class="kpi"><div class="num" id="kSleep">—</div><div class="label">h de son</div></div>
+      <div class="kpi"><div class="num" id="kFocus">—</div><div class="label">concentració /10</div></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card"><h3>Què mesura l’app?</h3>
+      <p class="muted">L’app separa temps de pantalla, son, contingut, interrupcions i concentració per mostrar-te patrons del teu dia a dia.</p>
+    </div>
+    <div class="card"><h3>Com utilitzar-la</h3>
+      <p class="muted">Fes el registre de manera regular i repeteix les proves en condicions semblants. Una prova individual no és un diagnòstic.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Perfil</h3>
+    <div class="two">
+      <div><label>Codi d’usuari</label><input id="code" placeholder="Ex.: P07"></div>
+      <div><label>Franja d'edat</label><select id="age"><option value="">No indicar</option><option>13–15</option><option>16–17</option><option>18+</option></select></div>
+    </div>
+    <div class="row" style="margin-top:12px"><button class="btn primary" id="saveProfile">Guardar perfil</button><span id="profileMsg" class="muted"></span></div>
+    <div class="notice" style="margin-top:12px">No cal posar nom ni dades personals. Les dades es guarden en aquest navegador i les pots exportar quan vulguis.</div>
+  </div>
+</section>
+
+<section id="diari" class="view">
+  <div class="card">
+    <h2>Diari de pantalles i hàbits</h2>
+    <p class="sub">Omple'l una vegada al dia. Si ja hi ha un registre per avui, l'app et permet actualitzar-lo.</p>
+    <div class="two">
+      <div><label>Data</label><input type="date" id="dDate"></div>
+      <div><label>Temps total de pantalla recreativa (h)</label><input type="number" id="dScreen" min="0" max="24" step=".25" placeholder="Ex.: 4.5"></div>
+    </div>
+    <div class="two">
+      <div><label>Hores de son</label><input type="number" id="dSleep" min="0" max="16" step=".25" placeholder="Ex.: 7.5"></div>
+      <div><label>Minuts de pantalla durant l'hora abans de dormir</label><input type="number" id="dNight" min="0" max="60" step="1" placeholder="Ex.: 30"></div>
+    </div>
+    <div class="two">
+      <div><label>Concentració percebuda avui (1–10)</label><input type="number" id="dFocus" min="1" max="10" step="1"></div>
+      <div><label>Interrupcions mentre estudiaves</label><select id="dInterrupt"><option>0</option><option>1–2</option><option>3–5</option><option>6+</option></select></div>
+    </div>
+    <label>Ús principal de pantalla avui</label>
+    <div class="options" id="contentOptions">
+      <button class="btn" data-value="Social">Xarxes / missatgeria</button>
+      <button class="btn" data-value="Vídeos">Vídeos / vídeos curts</button>
+      <button class="btn" data-value="Videojocs">Videojocs</button>
+      <button class="btn" data-value="Educatiu">Educatiu</button>
+      <button class="btn" data-value="Creatiu">Creatiu / productiu</button>
+      <button class="btn" data-value="Mixt">Mixt</button>
+    </div>
+    <label>Com t'has sentit després de l'ús de pantalla predominant?</label>
+    <select id="dFeeling"><option>Neutral</option><option>Més relaxat/da</option><option>Més actiu/va</option><option>Cansat/da</option><option>Dispers/a</option><option>Estressat/da</option></select>
+    <div class="row" style="margin-top:14px"><button class="btn primary" id="saveDay">Guardar registre</button><button class="btn" id="clearDay">Netejar</button><span id="dayMsg" class="muted"></span></div>
+  </div>
+
+  <div class="card">
+    <h3>Mini sessió d'estudi</h3>
+    <p class="muted">Això no bloqueja altres apps: simplement et permet registrar una sessió real i comparar la concentració abans/després i les interrupcions.</p>
+    <div class="two">
+      <div><label>Durada (min)</label><select id="studyMin"><option>15</option><option selected>25</option><option>45</option><option>60</option></select></div>
+      <div><label>Concentració abans (1–10)</label><input type="number" id="sBefore" min="1" max="10"></div>
+    </div>
+    <div class="timer" id="timer">25:00</div>
+    <div class="barwrap"><div class="bar" id="timerBar"></div></div>
+    <div class="row" style="justify-content:center;margin-top:14px"><button class="btn primary" id="startTimer">Iniciar</button><button class="btn" id="pauseTimer">Pausa</button><button class="btn" id="resetTimer">Reiniciar</button></div>
+    <div class="two" style="margin-top:10px">
+      <div><label>Concentració després (1–10)</label><input type="number" id="sAfter" min="1" max="10"></div>
+      <div><label>Interrupcions</label><select id="sInterrupt"><option>0</option><option>1–2</option><option>3–5</option><option>6+</option></select></div>
+    </div>
+    <button class="btn primary" id="saveStudy" style="margin-top:10px">Guardar sessió d'estudi</button>
+  </div>
+</section>
+
+<section id="proves" class="view">
+  <div class="card">
+    <h2>Proves cognitives senzilles</h2>
+    <p class="muted">No són proves mèdiques ni mesuren directament el cervell. Serveixen per obtenir una mesura experimental repetible de rendiment en una tasca d'atenció o memòria.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>1 · Atenció sostinguda</h3>
+      <p class="muted">Apareixeran 24 estímuls. Toca <b>X</b> només quan aparegui X. Hi haurà 8 X garantides. Es registren encerts, omissions, falses alarmes i temps de resposta.</p>
+      <button class="btn primary" id="startAttention">Començar prova</button>
+    </div>
+    <div class="card">
+      <h3>2 · Memòria de treball</h3>
+      <p class="muted">Memoritza una seqüència de números i introdueix-la en el mateix ordre. La dificultat augmenta progressivament.</p>
+      <button class="btn primary" id="startMemory">Començar prova</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="testPanel">
+    <div class="testbox">
+      <div class="sub" id="testStatus">Preparat</div>
+      <div class="stim" id="stimulus">—</div>
+      <button class="btn primary" id="respondX">X / RESPONDRE</button>
+      <div class="row" style="justify-content:center;margin-top:10px"><button class="btn" id="cancelTest">Aturar prova</button></div>
+    </div>
+  </div>
+
+  <div class="card hidden" id="memoryPanel">
+    <div class="testbox">
+      <div class="sub" id="memoryStatus">Memoritza</div>
+      <div class="stim" id="memorySeq">—</div>
+      <div id="memoryInputWrap" class="hidden"><input id="memoryInput" inputmode="numeric" placeholder="Escriu la seqüència"><button class="btn primary" id="memoryCheck" style="margin-top:10px">Comprovar</button></div>
+      <button class="btn" id="cancelMemory" style="margin-top:10px">Aturar prova</button>
+    </div>
+  </div>
+</section>
+
+<section id="dades" class="view">
+  <div class="card">
+    <div class="row between"><div><h2>Resultats del teu registre</h2><div class="sub">Només dades desades en aquest navegador.</div></div><div class="row"><button class="btn small" id="exportCSV">Exportar CSV</button><button class="btn small" id="exportJSON">Exportar JSON</button></div></div>
+    <div class="kpis">
+      <div class="kpi"><div class="num" id="rDays">0</div><div class="label">dies registrats</div></div>
+      <div class="kpi"><div class="num" id="rAvgScreen">—</div><div class="label">h pantalla mitjanes</div></div>
+      <div class="kpi"><div class="num" id="rAvgSleep">—</div><div class="label">h son mitjanes</div></div>
+      <div class="kpi"><div class="num" id="rAvgFocus">—</div><div class="label">focus mitjà /10</div></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card"><h3>Pantalla vs. concentració</h3><p class="sub">Comparació descriptiva per grups de dies. No implica causalitat.</p><div id="screenFocus"></div></div>
+    <div class="card"><h3>Son vs. concentració</h3><p class="sub">Comparació descriptiva per grups de dies.</p><div id="sleepFocus"></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Evolució de la concentració</h3>
+    <div class="chart" id="focusChart"></div>
+    <div class="sub" style="margin-top:26px">Cada columna correspon a un dels últims registres.</div>
+  </div>
+
+  <div class="card">
+    <h3>Historial</h3>
+    <div style="overflow:auto"><table><thead><tr><th>Data</th><th>Pantalla</th><th>Son</th><th>Focus</th><th>Contingut</th><th>Interrupcions</th></tr></thead><tbody id="history"></tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Resultats de les proves</h3>
+    <div style="overflow:auto"><table><thead><tr><th>Data</th><th>Prova</th><th>Resultat</th><th>Precisió</th></tr></thead><tbody id="testsHistory"></tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Resum</h3>
+    <div id="interpretation" class="notice">Registra almenys uns quants dies per obtenir una comparació.</div>
+  </div>
+
+  <div class="card">
+    <h3>Administració de dades</h3>
+    <p class="muted">Si vols compartir dades, utilitza només un codi i no hi posis dades personals.</p>
+    <button class="btn danger" id="deleteData">Esborrar totes les dades d'aquest dispositiu</button>
+  </div>
+</section>
+
+<footer>PantallaFocus · aplicació personal · les dades són orientatives i no constitueixen un diagnòstic clínic.</footer>
+</div>
+
+<script>
+(() => {
+"use strict";
+const KEY="pantallafocus_research_v3";
+const $=id=>document.getElementById(id);
+const today=()=>new Date().toISOString().slice(0,10);
+const defaultData=()=>({profile:{code:"",age:""},days:[],sessions:[],tests:[]});
+let data=load();
+let selectedContent="Mixt";
+let timer={running:false,paused:false,total:1500,remaining:1500,end:0,id:null};
+
+function load(){try{return Object.assign(defaultData(),JSON.parse(localStorage.getItem(KEY)||"{}"));}catch{return defaultData()}}
+function save(){localStorage.setItem(KEY,JSON.stringify(data));updateAll()}
+function fmtDate(s){return new Date(s+"T12:00:00").toLocaleDateString("ca-ES",{day:"2-digit",month:"2-digit"})}
+function avg(a){let x=a.filter(v=>Number.isFinite(v));return x.length?x.reduce((p,c)=>p+c,0)/x.length:null}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function go(view){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));$(view).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===view));updateAll()}
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.view)));
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+
+$("dDate").value=today(); $("code").value=data.profile.code; $("age").value=data.profile.age;
+$("saveProfile").addEventListener("click",()=>{data.profile.code=$("code").value.trim().slice(0,30);data.profile.age=$("age").value;save();$("profileMsg").textContent="Perfil guardat.";setTimeout(()=>$("profileMsg").textContent="",1800)});
+document.querySelectorAll("#contentOptions button").forEach(b=>b.addEventListener("click",()=>{selectedContent=b.dataset.value;document.querySelectorAll("#contentOptions button").forEach(x=>x.classList.remove("sel"));b.classList.add("sel")}));
+document.querySelector('#contentOptions button[data-value="Mixt"]').classList.add("sel");
+
+function getDay(date){return data.days.find(x=>x.date===date)}
+$("saveDay").addEventListener("click",()=>{
+ const date=$("dDate").value||today(), screen=Number($("dScreen").value), sleep=Number($("dSleep").value), night=Number($("dNight").value), focus=Number($("dFocus").value);
+ if(!date||![screen,sleep,night,focus].every(Number.isFinite)||screen<0||screen>24||sleep<0||sleep>16||night<0||night>60||focus<1||focus>10){$("dayMsg").textContent="Revisa els valors introduïts.";return}
+ const obj={date,screen,sleep,night,focus,interruptions:$("dInterrupt").value,content:selectedContent,feeling:$("dFeeling").value};
+ const old=getDay(date); if(old) Object.assign(old,obj); else data.days.push(obj);
+ data.days.sort((a,b)=>a.date.localeCompare(b.date)); save();$("dayMsg").textContent="Registre guardat.";setTimeout(()=>$("dayMsg").textContent="",1800);
+});
+$("clearDay").addEventListener("click",()=>{["dScreen","dSleep","dNight","dFocus"].forEach(id=>$(id).value="");$("dDate").value=today()});
+
+function fillDay(date){const x=getDay(date);if(!x)return; $("dScreen").value=x.screen;$("dSleep").value=x.sleep;$("dNight").value=x.night;$("dFocus").value=x.focus;$("dInterrupt").value=x.interruptions;$("dFeeling").value=x.feeling;selectedContent=x.content;document.querySelectorAll("#contentOptions button").forEach(b=>b.classList.toggle("sel",b.dataset.value===selectedContent))}
+$("dDate").addEventListener("change",e=>fillDay(e.target.value));
+
+function renderTimer(){const m=Math.floor(timer.remaining/60),s=timer.remaining%60;$("timer").textContent=`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;$("timerBar").style.width=`${Math.max(0,Math.min(100,(1-timer.remaining/timer.total)*100))}%`}
+$("studyMin").addEventListener("change",()=>{if(!timer.running){timer.total=Number($("studyMin").value)*60;timer.remaining=timer.total;renderTimer()}});
+$("startTimer").addEventListener("click",()=>{if(timer.running)return;timer.running=true;timer.paused=false;timer.end=Date.now()+timer.remaining*1000;timer.id=setInterval(tick,200)});
+$("pauseTimer").addEventListener("click",()=>{if(!timer.running)return;timer.remaining=Math.max(0,Math.ceil((timer.end-Date.now())/1000));clearInterval(timer.id);timer.id=null;timer.running=false;timer.paused=true;renderTimer()});
+$("resetTimer").addEventListener("click",()=>{clearInterval(timer.id);timer.id=null;timer.running=false;timer.paused=false;timer.total=Number($("studyMin").value)*60;timer.remaining=timer.total;$("timer").classList.remove("done");renderTimer()});
+function tick(){timer.remaining=Math.max(0,Math.ceil((timer.end-Date.now())/1000));renderTimer();if(timer.remaining<=0){clearInterval(timer.id);timer.id=null;timer.running=false;$("timer").classList.add("done");$("timer").textContent="COMPLETAT"}}
+$("saveStudy").addEventListener("click",()=>{const before=Number($("sBefore").value),after=Number($("sAfter").value),duration=Number($("studyMin").value);if(![before,after].every(v=>v>=1&&v<=10)){alert("Posa la concentració abans i després (1–10).");return}data.sessions.push({date:today(),duration,before,after,delta:after-before,interruptions:$("sInterrupt").value,completed:timer.remaining===0});save();alert("Sessió guardada.");});
+
+let attention=null;
+const attentionSeq=(()=>{let a=Array(24).fill("A");[1,4,7,10,13,17,20,23].forEach(i=>a[i]="X");for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a})();
+function startAttention(){go("proves");$("testPanel").classList.remove("hidden");$("memoryPanel").classList.add("hidden");attention={seq:[...attentionSeq],i:0,hits:0,miss:0,false:0,rt:[],shownAt:0,waiting:false};nextAttention()}
+function nextAttention(){if(!attention)return;if(attention.i>=attention.seq.length){finishAttention();return}attention.waiting=true;const s=attention.seq[attention.i];$("stimulus").textContent=s;$("testStatus").textContent=`Estímul ${attention.i+1} de ${attention.seq.length}`;attention.shownAt=performance.now();setTimeout(()=>{if(!attention||!attention.waiting)return;if(s==="X")attention.miss++;attention.waiting=false;attention.i++;nextAttention()},800)}
+$("respondX").addEventListener("click",()=>{if(!attention||!attention.waiting)return;const s=attention.seq[attention.i],rt=performance.now()-attention.shownAt;if(s==="X"){attention.hits++;attention.rt.push(rt)}else attention.false++;attention.waiting=false;attention.i++;nextAttention()});
+function finishAttention(){const a=attention,accuracy=Math.round((a.hits/(a.hits+a.miss||1))*100),avgRt=Math.round(avg(a.rt)||0);data.tests.push({date:today(),type:"Atenció",hits:a.hits,miss:a.miss,falseAlarms:a.false,accuracy,avgRt});save();$("stimulus").textContent="Resultat";$("testStatus").innerHTML=`<span class="success">${a.hits}/${a.hits+a.miss} X detectades · ${accuracy}% encerts · ${avgRt} ms de resposta mitjana · ${a.false} falses alarmes</span>`;attention=null}
+$("startAttention").addEventListener("click",startAttention);
+$("cancelTest").addEventListener("click",()=>{attention=null;$("testPanel").classList.add("hidden")});
+
+let memory=null;
+function startMemory(){go("proves");$("testPanel").classList.add("hidden");$("memoryPanel").classList.remove("hidden");memory={level:3,correct:0};memoryRound()}
+function memoryRound(){if(memory.level>7){finishMemory();return}let seq=Array.from({length:memory.level},()=>Math.floor(Math.random()*10)).join("");memory.seq=seq;$("memoryInput").value="";$("memoryInputWrap").classList.add("hidden");$("memorySeq").textContent=seq;$("memoryStatus").textContent=`Memoritza ${memory.level} xifres`;setTimeout(()=>{$("memorySeq").textContent="••••••";$("memoryInputWrap").classList.remove("hidden");$("memoryInput").focus()},1200)}
+$("memoryCheck").addEventListener("click",()=>{if(!memory)return;const ok=$("memoryInput").value.replace(/\D/g,"")===memory.seq;if(ok){memory.correct++;memory.level++;$("memoryStatus").textContent="Correcte. Següent nivell…";setTimeout(memoryRound,500)}else{finishMemory()}});
+function finishMemory(){const score=memory.correct;data.tests.push({date:today(),type:"Memòria de treball",score,max:5,accuracy:Math.round(score/5*100)});save();$("memorySeq").textContent=`${score}/5`;$("memoryStatus").textContent="Nivell màxim assolit";memory=null}
+$("cancelMemory").addEventListener("click",()=>{memory=null;$("memoryPanel").classList.add("hidden")});
+
+function groupCompare(key){const vals=data.days.filter(x=>Number.isFinite(Number(x[key])));if(vals.length<2)return null;const med=avg(vals.map(x=>Number(x[key])));const low=vals.filter(x=>Number(x[key])<med),high=vals.filter(x=>Number(x[key])>=med);return {low:avg(low.map(x=>x.focus)),high:avg(high.map(x=>x.focus)),n:vals.length,cut:med}}
+function cmpText(label,c){if(!c)return `<div class="notice">Encara no hi ha prou registres.</div>`;return `<div class="two"><div class="notice"><b>Per sota</b><br>${c.low==null?"—":c.low.toFixed(1)}/10</div><div class="notice"><b>Per sobre</b><br>${c.high==null?"—":c.high.toFixed(1)}/10</div></div><p class="sub">Tall descriptiu: ${c.cut.toFixed(1)} ${label}. n=${c.n}. No permet afirmar causalitat.</p>`}
+function updateAll(){
+ $("codePill").textContent=data.profile.code?`Codi ${data.profile.code}`:"Sense codi";
+ $("kSessions").textContent=data.days.length+data.sessions.length;
+ const as=avg(data.days.map(x=>Number(x.screen))), sl=avg(data.days.map(x=>Number(x.sleep))), fo=avg(data.days.map(x=>Number(x.focus)));
+ $("kScreen").textContent=as==null?"—":as.toFixed(1);$("kSleep").textContent=sl==null?"—":sl.toFixed(1);$("kFocus").textContent=fo==null?"—":fo.toFixed(1);
+ $("rDays").textContent=data.days.length;$("rAvgScreen").textContent=as==null?"—":as.toFixed(1);$("rAvgSleep").textContent=sl==null?"—":sl.toFixed(1);$("rAvgFocus").textContent=fo==null?"—":fo.toFixed(1);
+ $("screenFocus").innerHTML=cmpText("h de pantalla",groupCompare("screen"));$("sleepFocus").innerHTML=cmpText("h de son",groupCompare("sleep"));
+ const last=data.days.slice(-10);const max=Math.max(10,...last.map(x=>Number(x.focus)||0));$("focusChart").innerHTML=last.length?last.map(x=>`<div class="col" style="height:${Math.max(5,(x.focus/max)*150)}px" title="${fmtDate(x.date)}: ${x.focus}/10"><span>${fmtDate(x.date)}</span></div>`).join(""):`<span class="muted">Encara no hi ha dades.</span>`;
+ $("history").innerHTML=data.days.slice().reverse().map(x=>`<tr><td>${esc(fmtDate(x.date))}</td><td>${x.screen} h</td><td>${x.sleep} h</td><td>${x.focus}/10</td><td>${esc(x.content)}</td><td>${esc(x.interruptions)}</td></tr>`).join("")||`<tr><td colspan="6" class="muted">Sense registres.</td></tr>`;
+ $("testsHistory").innerHTML=data.tests.slice().reverse().map(x=>`<tr><td>${esc(fmtDate(x.date))}</td><td>${esc(x.type)}</td><td>${x.type==="Atenció"?`${x.hits} encerts · ${x.falseAlarms} falses · ${x.avgRt} ms`:`${x.score}/5`}</td><td>${x.accuracy}%</td></tr>`).join("")||`<tr><td colspan="4" class="muted">Sense proves.</td></tr>`;
+ const c=groupCompare("screen");let msg="Registra més dies per obtenir una comparació útil.";if(c){const d=(c.high??0)-(c.low??0);msg=`En els registres actuals, els dies amb més pantalla que el tall tenen una concentració mitjana de ${c.high?.toFixed(1)}/10, davant ${c.low?.toFixed(1)}/10 en els dies per sota del tall. Això és una associació descriptiva de la teva mostra, no una prova que la pantalla causi el canvi.`}
+ $("interpretation").textContent=msg;
+}
+function download(name,type,text){const blob=new Blob([text],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),500)}
+$("exportJSON").addEventListener("click",()=>download(`PantallaFocus_${data.profile.code||"anonim"}.json`,"application/json",JSON.stringify(data,null,2)));
+$("exportCSV").addEventListener("click",()=>{
+ const head=["codi","edat","data","pantalla_h","son_h","pantalla_abans_dormir_min","focus_1_10","interrupcions","contingut","sensacio"];
+ const rows=data.days.map(x=>[data.profile.code,data.profile.age,x.date,x.screen,x.sleep,x.night,x.focus,x.interruptions,x.content,x.feeling]);
+ const csv=[head,...rows].map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(";")).join("\\n");
+ download(`PantallaFocus_${data.profile.code||"anonim"}.csv`,"text/csv;charset=utf-8","\\ufeff"+csv)
+});
+$("deleteData").addEventListener("click",()=>{if(confirm("Vols esborrar totes les dades d'aquest dispositiu?")){localStorage.removeItem(KEY);data=defaultData();$("code").value="";$("age").value="";updateAll()}});
+
+updateAll();renderTimer();
+})();
+</script>
+</body>
+</html>
